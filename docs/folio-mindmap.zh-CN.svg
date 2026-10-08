@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1800 1280" role="img" aria-labelledby="title desc">
+  <title id="title">Folio 项目思维导图</title>
+  <desc id="desc">从用户输入、外部数据、桌面界面、内部处理、输出结果、持续跟踪和本机保存七个角度解释 Folio 的数据流转。</desc>
+  <defs>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="8" stdDeviation="14" flood-color="#253858" flood-opacity="0.10"/></filter>
+    <style>
+      text { font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", sans-serif; fill: #17324d; }
+      .title { font-size: 40px; font-weight: 750; }
+      .subtitle { font-size: 20px; fill: #60738b; }
+      .head { font-size: 28px; font-weight: 750; }
+      .body { font-size: 21px; fill: #42566f; }
+      .center { fill: #ffffff; font-size: 48px; font-weight: 800; }
+      .centerSub { fill: #dcecff; font-size: 23px; }
+      .small { font-size: 19px; fill: #586e86; }
+    </style>
+  </defs>
+  <rect width="1800" height="1280" fill="#f7f9fc"/>
+  <text x="900" y="73" text-anchor="middle" class="title">Folio：把信息变成可复查的投资判断</text>
+  <text x="900" y="112" text-anchor="middle" class="subtitle">一张图看懂：输入什么 → 如何处理 → 得到什么 → 如何继续跟踪</text>
+
+  <!-- Branches are drawn behind the cards. -->
+  <path d="M 750 500 C 668 500, 685 283, 640 283" fill="none" stroke="#4b9ba7" stroke-width="9" stroke-linecap="round"/>
+  <path d="M 750 575 C 674 575, 688 548, 640 548" fill="none" stroke="#6793dc" stroke-width="9" stroke-linecap="round"/>
+  <path d="M 750 656 C 668 656, 685 813, 640 813" fill="none" stroke="#9b82cd" stroke-width="9" stroke-linecap="round"/>
+  <path d="M 1050 500 C 1130 500, 1110 283, 1160 283" fill="none" stroke="#edaa58" stroke-width="9" stroke-linecap="round"/>
+  <path d="M 1050 575 C 1128 575, 1110 548, 1160 548" fill="none" stroke="#5bafe2" stroke-width="9" stroke-linecap="round"/>
+  <path d="M 1050 656 C 1128 656, 1110 813, 1160 813" fill="none" stroke="#75b18b" stroke-width="9" stroke-linecap="round"/>
+  <path d="M 900 704 C 900 824, 900 925, 900 978" fill="none" stroke="#899bb0" stroke-width="9" stroke-linecap="round"/>
+
+  <g filter="url(#shadow)">
+    <rect x="80" y="170" width="560" height="225" rx="24" fill="#e9f7f7" stroke="#a6d9dc" stroke-width="2"/>
+    <rect x="80" y="435" width="560" height="225" rx="24" fill="#edf3ff" stroke="#bbd0f3" stroke-width="2"/>
+    <rect x="80" y="700" width="560" height="225" rx="24" fill="#f2edfb" stroke="#d7c9ee" stroke-width="2"/>
+    <rect x="1160" y="170" width="560" height="225" rx="24" fill="#fff4e8" stroke="#f2d1a7" stroke-width="2"/>
+    <rect x="1160" y="435" width="560" height="225" rx="24" fill="#eaf6ff" stroke="#badcf2" stroke-width="2"/>
+    <rect x="1160" y="700" width="560" height="225" rx="24" fill="#ebf7ed" stroke="#bde0c4" stroke-width="2"/>
+    <rect x="750" y="444" width="300" height="260" rx="44" fill="#214f82"/>
+    <rect x="350" y="978" width="1100" height="166" rx="26" fill="#ffffff" stroke="#d6e0ea" stroke-width="2"/>
+  </g>
+
+  <text x="115" y="221" class="head">① 你交给它的线索</text>
+  <text x="115" y="267" class="body">关注的股票、问题和自选清单</text>
+  <text x="115" y="306" class="body">已连接账户的持仓，或自行导入的持仓</text>
+  <text x="115" y="345" class="body">想用的 AI、提醒条件与研究策略</text>
+
+  <text x="115" y="486" class="head">② 它去哪里找资料</text>
+  <text x="115" y="532" class="body">Longbridge：市场、公司、新闻及账户资料</text>
+  <text x="115" y="571" class="body">Massive：部分美股数据的备选来源</text>
+  <text x="115" y="610" class="body">无数据时，部分页面显示标明身份的示例</text>
+
+  <text x="115" y="751" class="head">③ 桌面上的三个区域</text>
+  <text x="115" y="797" class="body">左侧：选主题、自选股票和历史会话</text>
+  <text x="115" y="836" class="body">中间：看行情、事件、组合和报告</text>
+  <text x="115" y="875" class="body">右侧：用日常语言向 AI 继续追问</text>
+
+  <text x="1195" y="221" class="head">④ 看不见的处理</text>
+  <text x="1195" y="267" class="body">调度中心选数据来源、统一格式并记出处</text>
+  <text x="1195" y="306" class="body">按任务收集证据，缺失或失败会如实记录</text>
+  <text x="1195" y="345" class="body">技能手册指导 AI；规则计算风险和提醒</text>
+
+  <text x="1195" y="486" class="head">⑤ 你最终看到的</text>
+  <text x="1195" y="532" class="body">今日总览、图表、新闻、发现与比较</text>
+  <text x="1195" y="571" class="body">带证据的研究报告、组合风险和问答</text>
+  <text x="1195" y="610" class="body">提醒、简报、可导出内容及质量评测</text>
+
+  <text x="1195" y="751" class="head">⑥ 结果会继续被检验</text>
+  <text x="1195" y="797" class="body">报告可保存为可编辑的投资论点</text>
+  <text x="1195" y="836" class="body">可用新资料复查，显示结论有何变化</text>
+  <text x="1195" y="875" class="body">用后续行情回看判断，触发有意义的提醒</text>
+
+  <text x="900" y="547" text-anchor="middle" class="center">Folio</text>
+  <text x="900" y="590" text-anchor="middle" class="centerSub">私人投资研究工作台</text>
+  <text x="900" y="630" text-anchor="middle" class="centerSub">只读 · 本地优先</text>
+
+  <text x="900" y="1025" text-anchor="middle" class="head">⑦ 本机档案柜与使用边界</text>
+  <text x="900" y="1068" text-anchor="middle" class="body">会话、报告、规则等保存在本机；密钥加密保管；应用不发送交易订单</text>
+  <text x="900" y="1107" text-anchor="middle" class="small">接入外部行情或 AI 时，相关请求会发往所选服务；示例数据有标识</text>
+
+  <rect x="80" y="1182" width="1640" height="64" rx="16" fill="#e7eef7"/>
+  <text x="900" y="1222" text-anchor="middle" class="small">一条完整路径：选股票或提问 → 查资料 → 标出处 → 分析 → 展示、按需保存 → 等新变化再复查</text>
+</svg>
