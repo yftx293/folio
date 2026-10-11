@@ -11,16 +11,17 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     return (
       <div className="flex flex-col gap-1.5">
         {label && (
-          <label className="text-sm font-medium text-foreground/70">
+          <label className="text-sm font-medium text-foreground-muted">
             {label}
           </label>
         )}
         <input
           className={cn(
-            "h-9 rounded-[4px] border border-input bg-surface px-3 py-2 text-[13px] text-foreground placeholder:text-foreground/38",
-            "focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent",
+            "folio-input h-9 rounded-[var(--radius-control)] border border-input bg-surface px-3 py-2 text-[14px] text-foreground placeholder:text-foreground-subtle",
+            "hover:border-border-strong focus:outline-none focus:ring-2 focus:ring-ring focus:border-accent",
             "disabled:cursor-not-allowed disabled:opacity-50",
             "transition-smooth",
+            error && "border-destructive focus:border-destructive focus:ring-destructive",
             className
           )}
           ref={ref}

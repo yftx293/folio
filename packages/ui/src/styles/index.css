@@ -1,132 +1,146 @@
 @import "tailwindcss";
+@source "../";
 
-/* CRAFT AGENT THEME - Apple/macOS 6 Color System */
+/* Folio · Ink-blue research studio — stage 1 visual foundations.
+   Keep these defaults aligned in the renderer and standalone UI stylesheet. */
 :root {
-  /* Keep the package stylesheet aligned with the Electron renderer. */
-  --font-global-stack: "SF Mono", "JetBrains Mono", "PingFang SC", "Hiragino Sans GB", "Noto Sans CJK SC", "Microsoft YaHei", ui-monospace, monospace;
+  --font-global-stack: "Inter", "PingFang SC", "Hiragino Sans GB", "Noto Sans CJK SC", "Microsoft YaHei", system-ui, sans-serif;
   --font-sans-stack: var(--font-global-stack);
-  --font-display-stack: var(--font-global-stack);
-  --font-numeric-stack: var(--font-global-stack);
-
-  /* === 6 BASE COLORS === */
-  --background: oklch(0.985 0.002 260);
-  --background-elevated: color-mix(in srgb, var(--foreground) 1.5%, var(--background));
-  --foreground: oklch(0.19 0.012 260);
-  --foreground-dimmed: color-mix(in srgb, var(--foreground) 80%, var(--background));
-  --foreground-rgb: 35, 37, 43;
-  --accent: oklch(0.62 0.19 253);
-  --accent-rgb: 10, 132, 255;
-  --info: oklch(0.75 0.16 70);
-  --info-rgb: 180, 120, 40;
-  --success: oklch(0.55 0.17 145);
-  --success-rgb: 34, 120, 60;
-  --destructive: oklch(0.58 0.24 28);
-  --destructive-rgb: 180, 60, 50;
-
-  /* === SHADOW OPACITY (light mode = subtle) === */
+  --font-display-stack: "Geist", "Inter", "PingFang SC", "Hiragino Sans GB", "Noto Sans CJK SC", "Microsoft YaHei", system-ui, sans-serif;
+  --font-numeric-stack: "JetBrains Mono", "SF Mono", ui-monospace, monospace;
+  --radius: 6px;
+  --radius-control: 6px;
+  --radius-panel: 10px;
+  --motion-fast: 150ms;
+  --motion-base: 180ms;
+  --motion-content: 200ms;
+  --motion-slow: 600ms;
+  --motion-ambient: 11s;
   --shadow-border-opacity: 0.08;
   --shadow-blur-opacity: 0.06;
-
-  /* === SHADOW VALUES === */
-  --shadow-minimal:
-    rgba(0, 0, 0, 0) 0px 0px 0px 0px,
-    rgba(0, 0, 0, 0) 0px 0px 0px 0px,
-    rgba(var(--foreground-rgb), 0.055) 0px 0px 0px 1px,
-    rgba(0, 0, 0, 0.035) 0px 1px 1px -0.5px,
-    rgba(0, 0, 0, 0.045) 0px 5px 12px -8px;
-
-  --shadow-middle:
-    rgba(0, 0, 0, 0) 0px 0px 0px 0px,
-    rgba(0, 0, 0, 0) 0px 0px 0px 0px,
-    rgba(var(--foreground-rgb), 0.07) 0px 0px 0px 1px,
-    rgba(18, 23, 35, 0.045) 0px 2px 4px -2px,
-    rgba(18, 23, 35, 0.08) 0px 18px 38px -24px;
-
-  --mac-window: oklch(0.985 0.002 260);
-  --mac-titlebar: color-mix(in srgb, white 78%, var(--background));
-  --mac-sidebar: color-mix(in srgb, white 66%, var(--background));
-  --mac-sidebar-hover: color-mix(in srgb, var(--foreground) 4%, transparent);
-  --mac-border: color-mix(in srgb, var(--foreground) 8%, transparent);
-  --mac-border-strong: color-mix(in srgb, var(--foreground) 13%, transparent);
-  --mac-control: color-mix(in srgb, var(--foreground) 3.8%, white);
-  --mac-control-hover: color-mix(in srgb, var(--foreground) 6%, white);
-  --mac-surface: rgba(255, 255, 255, 0.78);
-  --mac-surface-solid: oklch(1 0 0);
-  --mac-blue: #0a84ff;
-  --mac-blue-hover: #0071e3;
-  --mac-blue-soft: rgba(10, 132, 255, 0.12);
-  --mac-green: #30d158;
-  --mac-red: #ff453a;
-  --mac-yellow: #ffd60a;
-
-  /* === LEGACY TOKENS (mapped for compatibility) === */
-  --bg-primary: 0.985 0.002 260;
-  --bg-secondary: 0.965 0.003 260;
-  --accent-primary: 0.62 0.19 253;
-  --text-primary: 0.19 0.012 260;
-  --text-secondary: 0.45 0.01 270;
-
-  /* === FINANCE THEME TOKENS === */
-  --surface: oklch(0.975 0.002 260);
-  --surface-raised: oklch(1 0 0);
-  --border: color-mix(in srgb, var(--foreground) 10%, transparent);
+  --shadow-minimal: 0 1px 3px rgba(var(--foreground-rgb), .04);
+  --shadow-middle: 0 8px 24px rgba(var(--foreground-rgb), .08);
+  --shadow-popover: 0 8px 24px rgba(var(--foreground-rgb), .14);
+  --shadow-dialog: 0 24px 64px rgba(16, 26, 43, .24);
+  --overlay: rgba(16, 26, 43, .42);
+  --switch-thumb: #FAFCFF;
+  --background: #EEF2F7;
+  --surface: #FAFCFF;
+  --surface-muted: #E6ECF4;
+  --surface-hover: #E1E7F5;
+  --foreground: #1B2B40;
+  --foreground-muted: #52637B;
+  --foreground-subtle: #586980;
+  --primary: #5865D8;
+  --primary-hover: #4855C5;
+  --primary-foreground: #FFFFFF;
+  --accent: #5865D8;
+  --accent-foreground: #FFFFFF;
+  --link-foreground: #4855C5;
+  --positive: #10B981;
+  --negative: #EF4444;
+  --success: #18754D;
+  --destructive: #B52C43;
+  --destructive-foreground: #FFFFFF;
+  --warning: #B77920;
+  --warning-foreground: #87530F;
+  --info: #5865D8;
+  --border: #D8E1ED;
+  --border-strong: #60718A;
+  --input: #71839D;
+  --ring: #5865D8;
+  --folio-sidebar-background: #182B49;
+  --folio-sidebar-foreground: #F2F6FD;
+  --folio-sidebar-muted: #BBC8DD;
+  --folio-agent-background: #E8EEF6;
+  /* Compatibility names consume the same palette as the renderer. */
+  --surface-raised: var(--surface);
+  --background-elevated: var(--surface-muted);
+  --foreground-dimmed: var(--foreground-muted);
   --text: var(--foreground);
-  --text-muted: oklch(0.45 0.01 270);
-  --positive: oklch(0.55 0.17 145);
-  --negative: oklch(0.58 0.24 28);
+  --text-muted: var(--foreground-muted);
+  --mac-window: var(--background);
+  --mac-titlebar: var(--surface);
+  --mac-sidebar: var(--surface-muted);
+  --mac-sidebar-hover: color-mix(in srgb, var(--foreground) 6%, transparent);
+  --mac-border: var(--border);
+  --mac-border-strong: var(--border-strong);
+  --mac-control: var(--surface);
+  --mac-control-hover: var(--surface-hover);
+  --mac-surface: var(--surface);
+  --mac-surface-solid: var(--surface);
+  --mac-blue: var(--accent);
+  --mac-blue-hover: var(--primary-hover);
+  --mac-blue-soft: color-mix(in srgb, var(--accent) 12%, transparent);
+  --mac-accent: var(--accent);
+  --mac-green: var(--positive);
+  --mac-red: var(--negative);
+  --mac-yellow: var(--warning);
+  --foreground-rgb: 27, 43, 64;
+  --accent-rgb: 88, 101, 216;
+  --positive-rgb: 16, 185, 129;
+  --negative-rgb: 239, 68, 68;
+  --success-rgb: 24, 117, 77;
+  --destructive-rgb: 181, 44, 67;
+  --warning-rgb: 183, 121, 32;
+  --info-rgb: 88, 101, 216;
+  --bg-primary: 0.95955 0.00796 253.853;
+  --bg-secondary: 0.94086 0.01258 255.507;
+  --accent-primary: 0.55805 0.17471 274.412;
+  --text-primary: 0.28562 0.04444 255.583;
+  --text-secondary: 0.49500 0.04388 257.020;
 }
 
 .dark {
-  --background: oklch(0.145 0.015 270);
-  --background-elevated: color-mix(in srgb, var(--foreground) 1.5%, var(--background));
-  --foreground: oklch(0.95 0.01 270);
-  --foreground-dimmed: color-mix(in srgb, var(--foreground) 80%, var(--background));
-  --foreground-rgb: 237, 236, 240;
-  --accent: oklch(0.68 0.18 253);
-  --accent-rgb: 64, 156, 255;
-  --info: oklch(0.78 0.14 70);
-  --info-rgb: 210, 155, 55;
-  --success: oklch(0.60 0.17 145);
-  --success-rgb: 50, 140, 80;
-  --destructive: oklch(0.65 0.22 28);
-  --destructive-rgb: 200, 70, 60;
-
-  --mac-window: oklch(0.155 0.014 260);
-  --mac-titlebar: color-mix(in srgb, var(--background) 84%, white);
-  --mac-sidebar: color-mix(in srgb, var(--background) 88%, white);
-  --mac-sidebar-hover: color-mix(in srgb, var(--foreground) 7%, transparent);
-  --mac-border: color-mix(in srgb, var(--foreground) 12%, transparent);
-  --mac-border-strong: color-mix(in srgb, var(--foreground) 20%, transparent);
-  --mac-control: color-mix(in srgb, var(--foreground) 7%, var(--background));
-  --mac-control-hover: color-mix(in srgb, var(--foreground) 11%, var(--background));
-  --mac-surface: rgba(35, 37, 44, 0.74);
-  --mac-surface-solid: oklch(0.205 0.014 260);
-  --mac-blue: #409cff;
-  --mac-blue-hover: #64adff;
-  --mac-blue-soft: rgba(64, 156, 255, 0.18);
-  --mac-green: #32d74b;
-  --mac-red: #ff6961;
-  --mac-yellow: #ffd60a;
-
-  /* === SHADOW OPACITY (stronger in dark mode) === */
+  --background: #101A2B;
+  --surface: #18273C;
+  --surface-muted: #132135;
+  --surface-hover: #243651;
+  --foreground: #E8EEF7;
+  --foreground-muted: #B2C0D4;
+  --foreground-subtle: #9AAEC8;
+  --primary: #A6ADFF;
+  --primary-hover: #B9BEFF;
+  --primary-foreground: #101A2B;
+  --accent: #A6ADFF;
+  --accent-foreground: #101A2B;
+  --link-foreground: #A6ADFF;
+  --positive: #42C995;
+  --negative: #FF6B76;
+  --success: #42C995;
+  --destructive: #FF9DA9;
+  --destructive-foreground: #101A2B;
+  --warning: #E6B86C;
+  --warning-foreground: #E6B86C;
+  --info: #A6ADFF;
+  --border: #30425C;
+  --border-strong: #7187A5;
+  --input: #7187A5;
+  --ring: #A6ADFF;
+  --folio-sidebar-background: #121F34;
+  --folio-sidebar-foreground: #F2F6FD;
+  --folio-sidebar-muted: #BBC8DD;
+  --folio-agent-background: #142238;
   --shadow-border-opacity: 0.15;
   --shadow-blur-opacity: 0.12;
-
-  /* === LEGACY TOKENS === */
-  --bg-primary: 0.145 0.015 270;
-  --bg-secondary: 0.20 0.015 270;
-  --accent-primary: 0.68 0.18 253;
-  --text-primary: 0.95 0.01 270;
-  --text-secondary: 0.70 0.01 270;
-
-  /* === FINANCE THEME TOKENS === */
-  --surface: oklch(0.19 0.014 260);
-  --surface-raised: oklch(0.24 0.015 260);
-  --border: color-mix(in srgb, var(--foreground) 14%, transparent);
-  --text: var(--foreground);
-  --text-muted: oklch(0.70 0.01 270);
-  --positive: oklch(0.66 0.16 145);
-  --negative: oklch(0.66 0.20 28);
+  --shadow-minimal: 0 1px 3px rgba(0, 0, 0, .14);
+  --shadow-middle: 0 8px 24px rgba(0, 0, 0, .24);
+  --shadow-popover: 0 8px 24px rgba(0, 0, 0, .32);
+  --shadow-dialog: 0 24px 64px rgba(0, 0, 0, .48);
+  --overlay: rgba(7, 13, 24, .64);
+  --foreground-rgb: 232, 238, 247;
+  --accent-rgb: 166, 173, 255;
+  --positive-rgb: 66, 201, 149;
+  --negative-rgb: 255, 107, 118;
+  --success-rgb: 66, 201, 149;
+  --destructive-rgb: 255, 157, 169;
+  --warning-rgb: 230, 184, 108;
+  --info-rgb: 166, 173, 255;
+  --bg-primary: 0.21758 0.03671 260.597;
+  --bg-secondary: 0.24595 0.04306 257.343;
+  --accent-primary: 0.77363 0.11711 279.535;
+  --text-primary: 0.94719 0.01373 258.345;
+  --text-secondary: 0.80337 0.03226 257.246;
 }
 
 /* Z-Index Scale */
@@ -144,37 +158,72 @@
 
 /* Theme integration via @theme inline */
 @theme inline {
-  --font-sans: var(--font-global-stack);
-  --font-mono: var(--font-global-stack);
   --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-accent: var(--accent);
-  --color-info: var(--info);
-  --color-success: var(--success);
-  --color-destructive: var(--destructive);
   --color-surface: var(--surface);
-  --color-surface-raised: var(--surface-raised);
-  --color-border: var(--border);
-  --color-text: var(--text);
-  --color-text-muted: var(--text-muted);
+  --color-surface-raised: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-surface-hover: var(--surface-hover);
+  --color-foreground: var(--foreground);
+  --color-foreground-muted: var(--foreground-muted);
+  --color-foreground-subtle: var(--foreground-subtle);
+  --color-text-muted: var(--foreground-muted);
+  --color-text-subtle: var(--foreground-subtle);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
   --color-positive: var(--positive);
   --color-negative: var(--negative);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-info: var(--info);
+  --color-success: var(--success);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-card: var(--surface);
+  --color-card-foreground: var(--foreground);
+  --color-popover: var(--surface);
+  --color-popover-foreground: var(--foreground);
+  --color-muted: var(--surface-muted);
+  --color-muted-foreground: var(--foreground-muted);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --font-sans: var(--font-sans-stack);
+  --font-mono: var(--font-numeric-stack);
+  --z-index-titlebar: 40;
+  --z-index-panel: 50;
+  --z-index-dropdown: 100;
+  --z-index-tooltip: 150;
+  --z-index-modal: 200;
 }
 
 body {
   margin: 0;
   font-family: var(--font-global-stack);
+  font-size: 14px;
+  color: var(--foreground);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: geometricPrecision;
-  background:
-    linear-gradient(180deg, color-mix(in srgb, var(--background) 98%, white), var(--background));
+  background: var(--background);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display-stack);
 }
 
 button,
 textarea,
-input {
-  font: inherit;
+input,
+select {
+  font-family: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
 }
 
 /* Apple-style frosted glass panels */
@@ -189,18 +238,29 @@ input {
 .elevated-surface {
   background: var(--mac-surface);
   box-shadow: var(--shadow-middle);
-  border-radius: 12px;
+  border-radius: var(--radius-panel);
 }
 
 /* Smooth transitions for interactive elements */
 .transition-smooth {
   transition:
-    background-color 0.18s cubic-bezier(0.25, 0.1, 0.25, 1),
-    border-color 0.18s cubic-bezier(0.25, 0.1, 0.25, 1),
-    box-shadow 0.18s cubic-bezier(0.25, 0.1, 0.25, 1),
-    color 0.18s cubic-bezier(0.25, 0.1, 0.25, 1),
-    opacity 0.18s cubic-bezier(0.25, 0.1, 0.25, 1),
-    transform 0.18s cubic-bezier(0.25, 0.1, 0.25, 1);
+    background-color var(--motion-base) cubic-bezier(0.25, 0.1, 0.25, 1),
+    border-color var(--motion-base) cubic-bezier(0.25, 0.1, 0.25, 1),
+    box-shadow var(--motion-base) cubic-bezier(0.25, 0.1, 0.25, 1),
+    color var(--motion-base) cubic-bezier(0.25, 0.1, 0.25, 1),
+    opacity var(--motion-base) cubic-bezier(0.25, 0.1, 0.25, 1),
+    transform var(--motion-base) cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .transition-smooth,
+  .folio-switch-thumb {
+    transition: none !important;
+  }
+
+  .folio-skeleton {
+    animation: none !important;
+  }
 }
 
 /* Scrollbar styling */
@@ -275,15 +335,15 @@ input {
 }
 
 .mac-primary-button {
-  background: var(--mac-blue);
-  color: white;
+  background: var(--primary);
+  color: var(--primary-foreground);
   box-shadow:
     inset 0 0 0 1px rgba(255, 255, 255, 0.18),
     0 8px 18px rgba(var(--accent-rgb), 0.22);
 }
 
 .mac-primary-button:hover {
-  background: var(--mac-blue-hover);
+  background: var(--primary-hover);
   box-shadow:
     inset 0 0 0 1px rgba(255, 255, 255, 0.18),
     0 10px 22px rgba(var(--accent-rgb), 0.25);

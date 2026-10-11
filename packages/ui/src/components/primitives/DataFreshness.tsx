@@ -19,7 +19,7 @@ export const DataFreshness: React.FC<{
   });
   const source = providerName ? `${providerName} · ` : '';
   return (
-    <span className={`text-[10.5px] tabular-nums text-foreground/42 ${className ?? ''}`}>
+    <span className={`text-[12px] leading-5 tabular-nums text-foreground-muted ${className ?? ''}`}>
       {source}Updated {time}
       {delayed ? ' · Delayed' : ''}
     </span>
