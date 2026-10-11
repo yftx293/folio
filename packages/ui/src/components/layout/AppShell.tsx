@@ -75,8 +75,8 @@ const LongBridgeBanner: React.FC = () => {
   return (
     <div className="folio-banner border-b px-4 py-2">
       <span className="font-semibold text-foreground">{title}</span>
-      <span className="text-foreground/78">{message}</span>
-      <span className="ml-2 text-foreground/54">{action}</span>
+      <span className="text-foreground-muted">{message}</span>
+      <span className="ml-2 text-foreground-muted">{action}</span>
     </div>
   );
 };

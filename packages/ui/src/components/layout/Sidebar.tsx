@@ -31,6 +31,7 @@ import {
 } from '../../atoms';
 import { useFinagentClient } from '../../client';
 import { Watchlist } from '../stock/Watchlist';
+import { FolioMark } from './FolioMark';
 
 type SidebarItem = { key: NavSection; labelKey: string; icon: LucideIcon };
 
@@ -66,6 +67,7 @@ const SidebarNavButton: React.FC<{
       <Icon className="h-4 w-4 shrink-0" strokeWidth={active ? 2 : 1.7} />
       <span className="folio-sidebar-nav-label">{label}</span>
       {item.key === 'alerts' && <span className="folio-sidebar-alert-dot" aria-hidden="true" />}
+      {active && <span className="folio-sidebar-fold" aria-hidden="true" />}
     </button>
   );
 };
@@ -81,18 +83,21 @@ export const Sidebar: React.FC = () => {
   const showWorkspaceContext = navSection === 'sessions' || navSection === 'watchlist';
 
   return (
-    <aside className="folio-sidebar h-full w-full overflow-hidden bg-surface" data-testid="sidebar">
+    <aside className="folio-sidebar h-full w-full overflow-hidden" data-testid="sidebar">
       <div className="folio-sidebar-content flex h-full min-w-0 flex-col px-3 py-5">
-        <div className="folio-sidebar-brand mb-6 px-2">
-          <div className="folio-sidebar-brand-name">Folio</div>
-          <div className="folio-sidebar-brand-kicker">{t('navigation.institutionalResearch')}</div>
+        <div className="folio-sidebar-brand mb-5 flex items-center gap-3 px-2">
+          <FolioMark className="folio-brand-mark h-9 w-9 shrink-0" />
+          <div className="min-w-0">
+            <div className="folio-sidebar-brand-name">Folio</div>
+            <div className="folio-sidebar-brand-kicker">{t('navigation.institutionalResearch')}</div>
+          </div>
         </div>
 
         <button
           type="button"
           aria-label={t('navigation.newSession')}
           onClick={() => void createSession(client)}
-          className="folio-sidebar-new-analysis mb-6 flex h-9 w-full items-center justify-center gap-2 rounded-[4px] px-3 text-[12px] font-semibold"
+          className="folio-sidebar-new-analysis mb-5 flex h-9 w-full items-center justify-center gap-2 rounded-[var(--radius-control)] px-3 text-[14px] font-semibold"
         >
           <CirclePlus className="h-4 w-4" />
           <span>{t('navigation.newSession')}</span>
@@ -120,7 +125,7 @@ export const Sidebar: React.FC = () => {
           <section className="folio-sidebar-context mt-4 min-h-0 border-t border-border pt-3">
             <div className="flex items-center justify-between px-2 pb-2">
               <span className="folio-sidebar-section-label">{t('navigation.sessions')}</span>
-              <span className="tnum text-[10px] text-foreground/40">{sessions.length}</span>
+              <span className="tnum text-[12px] text-foreground-muted">{sessions.length}</span>
             </div>
             <div className="max-h-28 overflow-y-auto">
               {sessions.map((session) => (
@@ -128,7 +133,7 @@ export const Sidebar: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => setActiveSessionId(session.id)}
-                    className={`flex w-full items-center rounded-[4px] px-2 py-1.5 pr-7 text-left text-[11px] ${session.id === activeSessionId ? 'bg-surface-muted text-foreground' : 'text-foreground/60 hover:bg-surface-muted'}`}
+                    className={`folio-sidebar-session flex w-full items-center rounded-[var(--radius-control)] px-2 py-1.5 pr-7 text-left text-[12px] transition-smooth ${session.id === activeSessionId ? 'bg-surface-hover text-foreground' : 'text-foreground-muted hover:bg-surface-hover hover:text-foreground'}`}
                   >
                     <span className="min-w-0 truncate">{session.title}</span>
                   </button>
@@ -136,13 +141,13 @@ export const Sidebar: React.FC = () => {
                     type="button"
                     onClick={(event) => { event.stopPropagation(); void deleteSession(client, session.id); }}
                     aria-label={t('navigation.deleteSession', { title: session.title })}
-                    className="absolute right-1 top-1/2 flex h-6 w-6 -translate-y-1/2 items-center justify-center rounded-[4px] text-foreground/35 opacity-0 group-hover:opacity-100 hover:bg-negative/10 hover:text-negative"
+                    className="absolute right-1 top-1/2 flex h-6 w-6 -translate-y-1/2 items-center justify-center rounded-[var(--radius-control)] text-foreground-muted opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 focus-visible:opacity-100 hover:bg-destructive/10 hover:text-destructive transition-smooth"
                   >
                     <Trash2 className="h-3.5 w-3.5" />
                   </button>
                 </div>
               ))}
-              {sessions.length === 0 && <div className="px-2 py-2 text-[11px] text-foreground/40">{t('navigation.noSessions')}</div>}
+              {sessions.length === 0 && <div className="px-2 py-2 text-[12px] text-foreground-muted">{t('navigation.noSessions')}</div>}
             </div>
             <button type="button" onClick={() => setNavSection('watchlist')} className="folio-sidebar-context-heading mt-3 flex w-full items-center gap-2 px-2 text-left">
               <Activity className="h-3.5 w-3.5" />
@@ -161,7 +166,7 @@ export const Sidebar: React.FC = () => {
             active={navSection === 'settings'}
             onClick={() => setNavSection('settings')}
           />
-          <div className="folio-sidebar-support flex items-center gap-2 px-3 py-2 text-[11px] text-foreground/45">
+          <div className="folio-sidebar-support flex items-center gap-2 px-3 py-2 text-[12px] text-foreground-muted">
             <CircleHelp className="h-4 w-4" />
             <span>{t('navigation.support')}</span>
           </div>

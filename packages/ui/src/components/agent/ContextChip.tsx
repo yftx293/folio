@@ -48,9 +48,9 @@ export const ContextChip: React.FC = () => {
     return (
       <div
         data-testid="context-chip"
-        className="inline-flex items-center gap-1.5 rounded-full border border-[rgba(var(--accent-rgb),0.22)] bg-[var(--mac-blue-soft)] px-2.5 py-1 text-[11px] font-medium"
+        className="folio-context-chip inline-flex max-w-full flex-wrap items-center gap-1.5 rounded-[var(--radius-control)] border border-accent/25 bg-[var(--mac-blue-soft)] px-2.5 py-1 text-[12px] leading-5 font-medium"
       >
-        <span className="font-semibold text-foreground">
+        <span className="min-w-0 break-words font-semibold text-foreground">
           {t('navigation.compare')} · {compareSymbols.join(' / ')}
         </span>
       </div>
@@ -61,7 +61,7 @@ export const ContextChip: React.FC = () => {
     return (
       <div
         data-testid="context-chip"
-        className="inline-flex items-center gap-1.5 rounded-full border border-dashed border-[var(--mac-border)] px-2.5 py-1 text-[11px] text-foreground/38"
+        className="folio-context-chip inline-flex max-w-full flex-wrap items-center gap-1.5 rounded-[var(--radius-control)] border border-dashed border-border-strong px-2.5 py-1 text-[12px] leading-5 text-foreground-muted"
       >
         {t('agent.context.none')}
       </div>
@@ -76,22 +76,22 @@ export const ContextChip: React.FC = () => {
   return (
     <div
       data-testid="context-chip"
-      className="inline-flex items-center gap-1.5 rounded-full border border-[rgba(var(--accent-rgb),0.22)] bg-[var(--mac-blue-soft)] px-2.5 py-1 text-[11px] font-medium"
+      className="folio-context-chip inline-flex max-w-full flex-wrap items-center gap-1.5 rounded-[var(--radius-control)] border border-accent/25 bg-[var(--mac-blue-soft)] px-2.5 py-1 text-[12px] leading-5 font-medium"
     >
       {parts.length === 1 ? (
-        <span className="font-semibold text-foreground">{parts[0]}</span>
+        <span className="min-w-0 break-words font-semibold text-foreground">{parts[0]}</span>
       ) : (
         <>
-          <span className="text-foreground/72">{parts[0]}</span>
-          <span className="text-foreground/34">·</span>
-          <span className="font-semibold text-foreground">{parts[1]}</span>
+          <span className="min-w-0 break-words text-foreground-muted">{parts[0]}</span>
+          <span className="text-foreground-muted">·</span>
+          <span className="min-w-0 break-words font-semibold text-foreground">{parts[1]}</span>
         </>
       )}
       {activeSymbol && (
         <button
           type="button"
           onClick={() => setActiveSymbol(null)}
-          className="ml-0.5 flex h-4 w-4 items-center justify-center rounded-full text-foreground/44 transition-smooth hover:bg-foreground/10 hover:text-foreground"
+          className="ml-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-[var(--radius-control)] text-foreground-muted transition-smooth hover:bg-surface-hover hover:text-foreground"
           aria-label={t('agent.context.clear')}
         >
           <svg width="9" height="9" viewBox="0 0 9 9" fill="none" aria-hidden="true">

@@ -27,10 +27,10 @@ export const WorkspaceTopbar: React.FC = () => {
 
   return (
     <header className="folio-workspace-topbar flex h-16 shrink-0 items-center justify-between gap-4 border-b border-border bg-surface px-6">
-      <div className="flex min-w-0 items-center gap-7">
+      <div className="folio-workspace-topbar-main flex min-w-0 items-center gap-5">
         <div className="folio-workspace-topbar-title shrink-0">Folio Research</div>
         {showAssetTabs && (
-          <nav aria-label={t('navigation.workspaceTabs')} className="folio-workspace-topbar-tabs flex h-full items-center gap-5">
+          <nav aria-label={t('navigation.workspaceTabs')} className="folio-workspace-topbar-tabs flex min-w-0 items-center gap-1">
             {TABS.map((tab) => (
               <button
                 key={tab.labelKey}
@@ -45,7 +45,7 @@ export const WorkspaceTopbar: React.FC = () => {
           </nav>
         )}
       </div>
-      <div className="flex shrink-0 items-center gap-3 text-foreground/48">
+      <div className="folio-workspace-topbar-tools flex shrink-0 items-center gap-3 text-foreground-muted">
         <RefreshCw className="h-3.5 w-3.5" aria-hidden="true" />
         <Moon className="h-3.5 w-3.5" aria-hidden="true" />
         <span className="folio-workspace-status"><span />{t('navigation.agentPanel')}</span>

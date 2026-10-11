@@ -35,24 +35,24 @@ export const ModelSelector: React.FC<ModelSelectorProps> = ({ disabled = false }
     else setOpen(false);
   };
 
-  return <div className="min-w-0">
+  return <div className="folio-model-selector min-w-0">
     <DropdownMenu open={open} onOpenChange={setOpen}>
       <DropdownMenuTrigger asChild>
-        <button type="button" disabled={disabled || busy} aria-label={t('agent.model.label')} className="flex max-w-[190px] items-center gap-1.5 rounded-[8px] border border-border bg-surface px-2.5 py-1.5 text-[12px] font-medium text-foreground/80 transition-colors hover:bg-surface-hover disabled:pointer-events-none disabled:opacity-45">
-          {busy ? <LoaderCircle className="h-3.5 w-3.5 animate-spin text-accent" /> : null}<span className="truncate">{currentLabel}</span><ChevronDown className="h-3.5 w-3.5 shrink-0 text-foreground/42" />
+        <button type="button" disabled={disabled || busy} aria-label={t('agent.model.label')} className="flex min-h-8 max-w-[190px] items-center gap-1.5 rounded-[var(--radius-control)] border border-input bg-surface px-2.5 py-1.5 text-[12px] font-medium text-foreground transition-smooth hover:bg-surface-hover hover:border-border-strong disabled:pointer-events-none disabled:opacity-45">
+          {busy ? <LoaderCircle className="h-3.5 w-3.5 animate-spin text-accent" /> : null}<span className="min-w-0 truncate">{currentLabel}</span><ChevronDown className="h-3.5 w-3.5 shrink-0 text-foreground-muted" />
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="start" className="max-h-72 w-64 overflow-y-auto">
-        {groups.length === 0 && !state.loading ? <div className="px-3 py-4 text-center text-[12px] text-foreground/42">{t('agent.model.none')}</div> : groups.map((group) => <React.Fragment key={group.provider}>
+        {groups.length === 0 && !state.loading ? <div className="px-3 py-4 text-center text-[12px] text-foreground-muted">{t('agent.model.none')}</div> : groups.map((group) => <React.Fragment key={group.provider}>
           <DropdownMenuLabel>{group.provider}</DropdownMenuLabel>
           {group.models.map((model: LlmModel) => {
             const isCurrent = current?.provider === model.provider && current.id === model.id;
-            return <DropdownMenuItem key={`${model.provider}/${model.id}`} onSelect={() => void handleSelect(model.provider, model.id)} className={isCurrent ? 'text-foreground' : 'text-foreground/72'}><span className="min-w-0 flex-1 truncate">{model.name || model.id}</span>{isCurrent && <Check className="h-3.5 w-3.5 text-accent" />}</DropdownMenuItem>;
+            return <DropdownMenuItem key={`${model.provider}/${model.id}`} onSelect={() => void handleSelect(model.provider, model.id)} className={isCurrent ? 'text-foreground' : 'text-foreground-muted'}><span className="min-w-0 flex-1 truncate">{model.name || model.id}</span>{isCurrent && <Check className="h-3.5 w-3.5 text-accent" />}</DropdownMenuItem>;
           })}
         </React.Fragment>)}
       </DropdownMenuContent>
     </DropdownMenu>
-    {error && <div className="mt-1 text-[11px] text-destructive">{error}</div>}
-    {!error && state.error && <div className="mt-1 text-[11px] text-foreground/42">{state.error}</div>}
+    {error && <div className="mt-1 break-words text-[12px] text-destructive">{error}</div>}
+    {!error && state.error && <div className="mt-1 break-words text-[12px] text-foreground-muted">{state.error}</div>}
   </div>;
 };

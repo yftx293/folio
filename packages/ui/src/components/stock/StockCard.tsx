@@ -9,21 +9,21 @@ interface StockCardProps {
 export const StockCard: React.FC<StockCardProps> = ({ quote, onClick }) => {
   const isPositive = quote.change >= 0;
   const changeColor = isPositive ? 'text-[var(--mac-green)]' : 'text-[var(--mac-red)]';
-  const bgColor = isPositive ? 'border-[rgba(48,209,88,0.22)]' : 'border-[rgba(255,69,58,0.22)]';
+  const bgColor = isPositive ? 'border-positive/25' : 'border-negative/25';
 
   return (
     <div
-      className={`mac-stock-tile cursor-pointer rounded-[14px] border p-4 transition-smooth hover:translate-y-[-1px] ${bgColor}`}
+      className={`mac-stock-tile cursor-pointer rounded-[var(--radius-panel)] border p-4 transition-smooth hover:bg-surface-hover ${bgColor}`}
       onClick={onClick}
     >
       <div className="flex justify-between items-start">
         <div>
-          <div className="text-[13px] font-semibold text-foreground/72">{quote.symbol}</div>
-          <div className="mt-1 text-2xl font-semibold tracking-tight text-foreground">
+          <div className="text-[14px] font-semibold text-foreground-muted">{quote.symbol}</div>
+          <div className="mt-1 text-2xl font-semibold tracking-tight tabular-nums text-foreground">
             ${quote.lastPrice.toFixed(2)}
           </div>
         </div>
-        <div className={`text-right ${changeColor}`}>
+        <div className={`text-right tabular-nums ${changeColor}`}>
           <div className="font-semibold">
             {isPositive ? '+' : ''}{quote.change.toFixed(2)}
           </div>
@@ -32,7 +32,7 @@ export const StockCard: React.FC<StockCardProps> = ({ quote, onClick }) => {
           </div>
         </div>
       </div>
-      <div className="mt-3 flex justify-between text-[12px] text-foreground/48">
+      <div className="mt-3 flex flex-wrap justify-between gap-1 text-[12px] tabular-nums text-foreground-muted">
         <span>Vol: {quote.volume.toLocaleString()}</span>
         <span>H: ${quote.high.toFixed(2)} L: ${quote.low.toFixed(2)}</span>
       </div>

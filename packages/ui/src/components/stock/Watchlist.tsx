@@ -100,7 +100,7 @@ export const Watchlist: React.FC<{ showHeader?: boolean }> = ({ showHeader = tru
       <div className="folio-watchlist-header border-b mac-section-divider px-3 py-3">
         {showHeader && (
           <div className="mb-2 flex min-w-0 flex-wrap items-center justify-between gap-x-2 gap-y-1 px-0.5">
-            <span className="text-[11px] font-semibold uppercase text-foreground/42">
+            <span className="text-[12px] font-semibold text-foreground-muted">
               {t('navigation.watchlist')}
             </span>
             <span className="flex min-w-0 items-center gap-2">
@@ -115,7 +115,7 @@ export const Watchlist: React.FC<{ showHeader?: boolean }> = ({ showHeader = tru
             </span>
           </div>
         )}
-        <div className="flex gap-1.5">
+        <div className="flex min-w-0 gap-1.5 [&>div]:min-w-0 [&>div]:flex-1">
           <Input
             value={newSymbol}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -125,7 +125,7 @@ export const Watchlist: React.FC<{ showHeader?: boolean }> = ({ showHeader = tru
             onKeyDown={handleKeyDown}
             placeholder="AAPL.US"
             error={error}
-            className="h-8 flex-1 text-[12px]"
+            className="h-8 w-full min-w-0 text-[12px]"
           />
           <Button size="icon" onClick={handleAddSymbol} aria-label={t('navigation.watchlistAddSymbol')}>
             <CirclePlus className="h-4 w-4" strokeWidth={1.8} />
@@ -148,7 +148,7 @@ export const Watchlist: React.FC<{ showHeader?: boolean }> = ({ showHeader = tru
           />
         ))}
         {watchlist.length === 0 && (
-          <div className="py-8 text-center text-[13px] text-foreground/44">
+          <div className="py-8 text-center text-[12px] text-foreground-muted">
             <p>{t('navigation.watchlistEmpty')}</p>
             <p className="mt-1">{t('navigation.watchlistAddSymbols')}</p>
           </div>
@@ -205,18 +205,18 @@ const WatchlistRow: React.FC<WatchlistRowProps> = ({
           onSelect();
         }
       }}
-      className={`folio-watchlist-row group relative flex cursor-pointer items-center gap-1.5 rounded-[8px] px-2.5 py-1.5 transition-colors ${
+      className={`folio-watchlist-row group relative flex cursor-pointer items-center gap-1.5 rounded-[var(--radius-control)] px-2.5 py-1.5 transition-smooth ${
         active
           ? 'folio-watchlist-row--active bg-[var(--mac-blue-soft)]'
           : 'hover:bg-[var(--mac-sidebar-hover)]'
       }`}
     >
       <div className="min-w-0 flex-1">
-        <div className="flex items-baseline gap-1.5">
+        <div className="folio-watchlist-identity flex min-w-0 items-baseline gap-1.5">
           <span className="text-[12px] font-bold uppercase tracking-tight text-foreground">
             {symbol}
           </span>
-          <span className="truncate text-[11px] text-foreground/48">{name}</span>
+          <span className="truncate text-[12px] text-foreground-muted">{name}</span>
         </div>
       </div>
 
@@ -228,12 +228,12 @@ const WatchlistRow: React.FC<WatchlistRowProps> = ({
             <div className="text-[12px] font-semibold text-foreground">
               {formatPrice(quote.lastPrice)}
             </div>
-            <div className="text-[11px]" style={{ color: changeColor }}>
+            <div className="text-[12px]" style={{ color: changeColor }}>
               {formatPercent(quote.changePercent)}
             </div>
           </>
         ) : (
-          <div className="text-[12px] text-foreground/40">{DASH}</div>
+          <div className="text-[12px] text-foreground-muted">{DASH}</div>
         )}
       </div>
 
@@ -242,7 +242,7 @@ const WatchlistRow: React.FC<WatchlistRowProps> = ({
           e.stopPropagation();
           onRemove();
         }}
-        className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-foreground/38 opacity-0 transition-smooth hover:bg-foreground/8 hover:text-[var(--negative)] group-hover:opacity-100"
+        className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-foreground-muted opacity-0 transition-smooth hover:bg-foreground/8 hover:text-destructive group-hover:opacity-100 group-focus-within:opacity-100 focus-visible:opacity-100"
         aria-label={t('navigation.watchlistRemoveSymbol', { symbol })}
       >
         <X className="h-3 w-3" strokeWidth={1.8} />

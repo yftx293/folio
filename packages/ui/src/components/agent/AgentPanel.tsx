@@ -30,8 +30,7 @@ import { loadSessionTraceSources, projectSessionTrace } from '../../lib/traceDat
 import { QuoteCard } from './structured/QuoteCard';
 import { PortfolioRiskCard } from './structured/PortfolioRiskCard';
 import { AgentAmbientField, type AgentMotionState } from '../motion/AgentAmbientField';
-
-const folioLogoUrl = new URL('../../assets/folio-logo.png', import.meta.url).href;
+import { FolioMark } from '../layout/FolioMark';
 
 // ---------------------------------------------------------------------------
 // Defensive parsing of structured tool results (get_quote / get_portfolio).
@@ -223,20 +222,15 @@ export const AgentPanel: React.FC = () => {
         data-testid="agent-panel"
         className="folio-agent-panel flex h-full w-full flex-col items-center justify-center border-l mac-section-divider bg-background"
       >
-        <div className="px-6 text-center">
-          <img
-            src={folioLogoUrl}
-            alt=""
-            className="mx-auto mb-4 h-14 w-14 rounded-[16px] shadow-[0_14px_38px_rgba(var(--accent-rgb),0.18)]"
-            draggable={false}
-          />
-          <h2 className="mb-2 text-[19px] font-semibold tracking-tight text-foreground">{t('agent.panel.title')}</h2>
-          <p className="mb-5 text-[13px] leading-relaxed text-foreground/52">
+        <div className="folio-agent-empty px-6 text-center">
+          <FolioMark className="folio-brand-mark folio-agent-empty-mark mx-auto mb-5 h-14 w-14 text-accent" />
+          <h2 className="mb-2 text-[20px] font-semibold tracking-tight text-foreground">{t('agent.panel.title')}</h2>
+          <p className="mb-5 text-[14px] leading-relaxed text-foreground-muted">
             {t('agent.empty.body')}
           </p>
           <button
             onClick={() => void createSession(client)}
-            className="mac-primary-button h-9 rounded-[10px] px-4 text-[13px] font-semibold transition-smooth active:scale-[0.985]"
+            className="mac-primary-button h-9 rounded-[var(--radius-control)] px-4 text-[14px] font-semibold transition-smooth active:scale-[0.985]"
           >
             {t('agent.empty.createSession')}
           </button>
@@ -263,7 +257,7 @@ export const AgentPanel: React.FC = () => {
         <button
           type="button"
           onClick={() => setAgentPanelVisible(false)}
-          className="flex h-7 w-7 shrink-0 items-center justify-center rounded-[8px] text-foreground/44 transition-smooth hover:bg-[var(--mac-sidebar-hover)] hover:text-foreground"
+          className="folio-agent-collapse flex h-7 w-7 shrink-0 items-center justify-center rounded-[var(--radius-control)] text-foreground-muted transition-smooth hover:bg-surface-hover hover:text-foreground"
           aria-label={t('agent.panel.collapsePanel')}
           title={t('agent.panel.collapsePanel')}
         >
@@ -292,7 +286,7 @@ export const AgentPanel: React.FC = () => {
           {isRunning ? (
             <div className="folio-agent-activity-surface rounded-[10px] border border-border bg-surface-muted px-3 py-2" data-testid="agent-activity-surface">
               <AgentAmbientField state={agentMotionState} />
-              <div className="relative flex items-center gap-2 text-[11px] text-foreground/64">
+              <div className="relative flex items-center gap-2 text-[12px] text-foreground-muted">
                 <span className="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden="true" />
                 <span className="font-medium">{runView?.toolCalls.some((toolCall) => toolCall.status === 'running') ? t('agent.tool.running') : t('agent.panel.agentRunning')}</span>
               </div>
@@ -335,7 +329,7 @@ export const AgentPanel: React.FC = () => {
             placeholder={isRunning ? t('agent.panel.inputRunningPlaceholder') : t('agent.panel.inputPlaceholder')}
             disabled={isRunning}
             rows={2}
-            className="mac-input folio-agent-textarea w-full resize-none px-3 py-2.5 pr-11 text-[13px] leading-relaxed text-foreground placeholder:text-foreground/38 focus:border-[rgba(var(--accent-rgb),0.34)] focus:outline-none focus:ring-2 focus:ring-accent/25 disabled:opacity-50"
+            className="folio-agent-textarea w-full resize-none border border-input px-3 py-2.5 pr-11 text-[14px] leading-relaxed text-foreground placeholder:text-foreground-subtle transition-smooth focus:border-accent focus:outline-none focus:ring-2 focus:ring-ring disabled:opacity-50"
           />
           {!isRunning && (
             <button
@@ -349,7 +343,7 @@ export const AgentPanel: React.FC = () => {
             </button>
           )}
         </div>
-        {sendError && <div className="mt-1.5 text-[11px] text-destructive">{sendError}</div>}
+        {sendError && <div className="mt-1.5 text-[12px] text-destructive">{sendError}</div>}
         {isRunning && (
           <div className="mt-2 flex justify-end">
             <button
@@ -401,12 +395,12 @@ const RunFooter: React.FC<{
         failed ? 'border-destructive/24 bg-destructive/5' : 'border-border bg-surface-muted'
       }`}
     >
-      <span className={`text-[11px] ${failed ? 'text-negative' : 'text-foreground/60'}`}>{summary}</span>
+      <span className={`text-[12px] ${failed ? 'text-destructive' : 'text-foreground-muted'}`}>{summary}</span>
       <button
         type="button"
         onClick={onOpenTrace}
         data-testid="run-footer-trace"
-        className="flex items-center gap-1 rounded-[7px] border border-border px-2 py-1 text-[11px] font-medium text-foreground/64 transition-smooth hover:border-border-strong hover:text-foreground"
+        className="flex items-center gap-1 rounded-[var(--radius-control)] border border-input px-2 py-1 text-[12px] font-medium text-foreground-muted transition-smooth hover:border-border-strong hover:text-foreground"
       >
         {t('trace.footer.trace')}
         <ChevronRight className="h-3 w-3" strokeWidth={1.8} />
@@ -436,7 +430,7 @@ const SuggestionChips: React.FC<{ onPick: (text: string) => void }> = ({ onPick 
   if (prompts.length === 0) return null;
   return (
     <div className="folio-agent-suggestions px-3 pb-1" data-testid="agent-suggestions">
-      <div className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-[.12em] text-foreground/36">
+      <div className="flex items-center gap-1.5 text-[12px] font-semibold text-foreground-muted">
         <Sparkles className="h-3 w-3" strokeWidth={1.8} />
         {t('agent.suggestions.title')}
       </div>
@@ -446,7 +440,7 @@ const SuggestionChips: React.FC<{ onPick: (text: string) => void }> = ({ onPick 
             key={prompt}
             type="button"
             onClick={() => onPick(prompt)}
-            className="max-w-full truncate rounded-full border border-border bg-surface px-2.5 py-1 text-[11px] text-foreground/62 transition-smooth hover:border-border-strong hover:text-foreground"
+            className="max-w-full truncate rounded-[var(--radius-control)] border border-input bg-surface px-2.5 py-1 text-[12px] text-foreground-muted transition-smooth hover:bg-surface-hover hover:border-border-strong hover:text-foreground"
           >
             {prompt}
           </button>
@@ -461,14 +455,14 @@ const StreamingBlock: React.FC<{ answer: string }> = ({ answer }) => {
   const { t } = useTranslation();
   return (
     <div data-testid="run-panel" className="rounded-[10px] border mac-section-divider bg-surface px-3.5 py-3">
-      <div className="mb-2 flex items-center gap-2 text-[11px] font-semibold uppercase text-foreground/48">
+      <div className="mb-2 flex items-center gap-2 text-[12px] font-semibold text-foreground-muted">
         <span className="h-2 w-2 animate-pulse rounded-full bg-accent" />
         {t('agent.panel.agentRunning')}
       </div>
       {answer.length > 0 ? (
-        <AnswerContent content={answer} streaming className="text-[13px] text-foreground/72" />
+        <AnswerContent content={answer} streaming className="text-[14px] text-foreground" />
       ) : (
-        <div className="text-[13px] italic text-foreground/40">{t('agent.panel.thinking')}</div>
+        <div className="text-[14px] italic text-foreground-muted">{t('agent.panel.thinking')}</div>
       )}
     </div>
   );
