@@ -10,6 +10,17 @@ const workflow = readFileSync(
 );
 
 describe('eval-nightly workflow (issue #113)', () => {
+  it('creates the log directory before tee opens it', () => {
+    const directory = workflow.indexOf('mkdir -p artifacts');
+    expect(directory).toBeGreaterThan(-1);
+    expect(directory).toBeLessThan(workflow.indexOf('| tee artifacts/eval-full.log'));
+  });
+
+  it('requires opt-in for schedules while keeping manual live runs available', () => {
+    expect(workflow).toContain("github.event_name == 'workflow_dispatch' || vars.FINAGENT_LIVE_EVAL_ENABLED == 'true'");
+    expect(workflow).toContain('vars.FINAGENT_EVAL_RUNNER');
+  });
+
   it('does not wrap the live eval step in continue-on-error', () => {
     expect(workflow).not.toContain('continue-on-error');
   });
