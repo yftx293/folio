@@ -8,12 +8,13 @@ workflows, and how to promote baselines.
 
 | Trigger | Workflow | What runs | Cost | Gate? |
 |---|---|---|---|---|
-| Every PR + push to `main` | `eval-smoke.yml` | `eval:smoke` — fixture mode, deterministic evaluators, ~15 high-value regression/golden cases | $0, no LLM calls, no network | **Yes** — blocks merge on regression |
-| Nightly 03:17 UTC + manual dispatch | `eval-nightly.yml` | `eval:full` — entire benchmark, live providers, LLM judge | API credits | No — report artifact only |
+| Manual dispatch | `eval-smoke.yml` | `eval:smoke` — fixture mode, deterministic evaluators, ~15 high-value regression/golden cases | $0, no LLM calls, no network | Fails on regression |
+| Nightly 03:17 UTC (opt-in) + manual dispatch | `eval-nightly.yml` | `eval:full` — entire benchmark, live providers, LLM judge | API credits | No — report artifact only |
 | Release experiments (manual) | run `eval:full` / targeted experiments locally or via `eval-nightly.yml` dispatch | model/strategy comparisons | API credits | No |
 
 Expensive cloud/live eval **never** runs on every commit (spec §73, §79);
-the PR gate is fixture-only by design.
+The current `pr.yml` runs type checks, workspace tests and secret scanning;
+the standalone fixture smoke workflow is manual-only.
 
 ## Why fixture-only on PR (spec §74)
 
@@ -34,20 +35,29 @@ dashboard and baseline promotion.
 
 ## Workflows
 
-### `.github/workflows/eval-smoke.yml` — PR gate
+### `.github/workflows/eval-smoke.yml` — manual fixture regression
 
-- Triggers: `pull_request`, `push` to `main`.
+- Trigger: `workflow_dispatch`.
 - Steps: checkout → setup Bun (`oven-sh/setup-bun@v2`) → `bun install
   --frozen-lockfile` → `bun run eval:smoke -- --mode fixture --out
   artifacts/eval-smoke.json` → upload the JSON artifact.
 - The CLI exits `0` on pass and `1` on gate failure (metric regression past
-  `maxDelta`) or run error; a non-zero exit fails the job and blocks the PR.
+  `maxDelta`) or run error; a non-zero exit fails the manual job.
 - `concurrency` group cancels superseded runs on the same PR/branch.
 
 ### `.github/workflows/eval-nightly.yml` — nightly + manual full eval
 
 - Triggers: `schedule` (daily `17 3 * * *` UTC) and `workflow_dispatch`
   (for release/manual experiments).
+- Scheduled jobs run only when the repository variable
+  `FINAGENT_LIVE_EVAL_ENABLED` is exactly `true`. Leave it unset while live
+  dependencies are unconfigured. A skipped schedule means **not evaluated**,
+  not a passing live benchmark. Manual dispatch always runs the real preflight
+  and still fails on unavailable providers, credentials or market data.
+- Runner: `FINAGENT_EVAL_RUNNER` selects a configured runner label; defaults
+  to `ubuntu-latest`. Use a dedicated runner label with an installed and
+  authenticated LongBridge CLI when enabling nightly eval. This workflow
+  does not install or authenticate that user-managed dependency.
 - Steps: checkout → setup Bun → install → `bun run eval:full -- --mode live
   --model <provider>/<id> --judge-provider anthropic --judge-model <id>
   --out artifacts/eval-full.json`, with
@@ -64,14 +74,18 @@ dashboard and baseline promotion.
   `| tee` pipeline keeps the CLI's real exit code (`0` valid · `1` quality
   regression/usage · `2` invalid or inconclusive execution · `3` cancelled),
   so a failed run fails the job while the summary and artifacts still upload.
+- The workflow creates `artifacts/` before opening the log through `tee`;
+  the CLI also creates parent directories for its JSON output. Missing output
+  directories therefore do not replace an invalid preflight's exit `2` with
+  an `ENOENT` crash.
 - Report steps (no issue automation): a summary step greps the printed
   validity/execution table into `$GITHUB_STEP_SUMMARY`, and the JSON artifact
   plus run log are uploaded (both on success and failure).
 
-Note: the runner does not currently install or authenticate the LongBridge
-CLI, so the preflight correctly reports `invalid` (exit 2) until the data
-source is provisioned in CI. That is the intended failure mode: no fake
-composite score, no green light on an unmeasurable suite.
+Before opting in, configure the `ANTHROPIC_API_KEY` secret (used for the
+default agent and judge), any required runtime credentials, and the runner's
+LongBridge authentication. Keep credentials out of source control. Until then,
+use the manual fixture smoke workflow for a check that needs no live services.
 
 ## Baselines & promotion
 

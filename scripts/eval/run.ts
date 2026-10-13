@@ -24,6 +24,7 @@ import { mkdtemp, mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { homedir } from 'node:os';
+import { writeArtifact } from './artifact.ts';
 import type { MarketDataFetchers } from '../../packages/shared/src/agent/market-data-service.ts';
 import { MarketDataService } from '../../packages/shared/src/agent/market-data-service.ts';
 import { FinanceToolRegistry } from '../../packages/shared/src/agent/finance-tool-registry.ts';
@@ -1044,13 +1045,6 @@ async function main(): Promise<number> {
     await kernel?.dispose();
     await rm(runtimeDir, { recursive: true, force: true }).catch(() => undefined);
   }
-}
-
-/** Write the JSON artifact when requested; never throws on a missing path. */
-async function writeArtifact(path: string | undefined, payload: unknown): Promise<void> {
-  if (!path) return;
-  await writeFile(path, JSON.stringify(payload, null, 2));
-  console.log(`Artifact written to ${resolve(path)}`);
 }
 
 /**
