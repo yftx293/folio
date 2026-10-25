@@ -22,6 +22,8 @@ interface ProviderModelConfig {
   reasoning?: boolean;
   contextWindow?: number;
   maxTokens?: number;
+  input?: string[];
+  cost?: { input: number; output: number; cacheRead: number; cacheWrite: number };
 }
 
 interface ProviderConfig {
@@ -183,6 +185,26 @@ function readProviderOverrides(): ProviderOverride[] {
   }
 }
 
+/**
+ * pi-ai's openai-completions streaming path reads `model.input`,
+ * `model.cost`, `model.maxTokens` and `model.contextWindow` unguarded, but the
+ * custom-provider form only collects id/name/contextWindow/reasoning — without
+ * defaults every custom-model request throws on first token. Fill safe
+ * defaults so a registered custom model is streamable.
+ */
+function normalizeProviderModels(
+  models: ProviderModelConfig[] | undefined
+): ProviderModelConfig[] | undefined {
+  if (!models) return undefined;
+  return models.map((model) => ({
+    ...model,
+    input: model.input ?? ['text'],
+    cost: model.cost ?? { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 },
+    contextWindow: model.contextWindow ?? 131072,
+    maxTokens: model.maxTokens ?? 8192,
+  }));
+}
+
 export function registerProviderOverrides(agent: AgentApi) {
   if (typeof agent.registerProvider !== 'function') return;
 
@@ -203,7 +225,7 @@ export function registerProviderOverrides(agent: AgentApi) {
     if (entry.baseUrl !== undefined) config.baseUrl = entry.baseUrl;
     if (entry.apiKey !== undefined) config.apiKey = entry.apiKey;
     if (entry.api !== undefined) config.api = entry.api;
-    if (entry.models !== undefined) config.models = entry.models;
+    if (entry.models !== undefined) config.models = normalizeProviderModels(entry.models);
     agent.registerProvider(entry.provider, config);
   }
 }
